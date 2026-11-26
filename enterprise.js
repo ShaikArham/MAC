@@ -1,5 +1,5 @@
 /* MAC enterprise-mode UI: generated aggregates, bounded labeled samples, no external calls. */
-const enterpriseMoney=n=>new Intl.NumberFormat('en-IE',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n/100);
+const enterpriseMoney=n=>new Intl.NumberFormat('en-IE',{style:'currency',currency:'EUR',minimumFractionDigits:2,maximumFractionDigits:2}).format(n/100);
 const enterpriseNumber=n=>new Intl.NumberFormat('en-IE').format(n);
 function validateEnterprise(s){
  if(!s||s.schema_version!==2||s.synthetic!==true||s.mode!=='enterprise_aggregate'||!s.summary||!s.finance||!s.operations||!s.samples||!Array.isArray(s.monthly)||s.monthly.length!==12||!Array.isArray(s.quality))throw Error('Unsupported enterprise snapshot');
