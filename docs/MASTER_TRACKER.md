@@ -36,3 +36,6 @@ mac-backend commits 8ca9b76 (connectors), 9c4b66c (tests), 139de72 (dependency),
 
 ## MAC-05 integration checkpoint
 Backend source commits f269ce0 (persistent registry, canonical mapping and MAC-04 snapshot adapter), e491d6d (loopback fixture HTTP server/client), tests/test_snapshot.py added. Source only this checkpoint; tests not executed. Adapter requires combined checkout with MAC-04 pipeline; HTTP client not yet wired into registry. Single-process registry; snapshot copy is not atomic; scheduled monitoring remains open. Next run combined isolated tests and wire HTTP sources before acceptance.
+
+## MAC-05 scoped runtime acceptance — PASS
+HTTP registry wiring 6783562; combined regression 284ceb8. Isolated combined checkout: 7/7 tests passed in 1.127s; six backend Python blob hashes matched remote. End-to-end 10 sources (2 loopback HTTP, 8 CSV), 22 rows, 17 accepted, 5 rejected, EUR 2100 order value. Persistent health verified. No failing tests observed. Verification report docs/MAC05_VERIFICATION.md on mac-backend. Local on-demand integration accepted; scheduled monitoring, atomic publication, multi-process registry, durable endpoint configuration and branch integration remain open. Next MAC-06 advanced ETL. No deployment or merge.
