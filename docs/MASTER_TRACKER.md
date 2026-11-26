@@ -24,3 +24,6 @@ Branch mac-data-engineering: synthetic customers/orders CSV, Python validation a
 
 ## MAC-03 Business discovery
 Scenario discovery and initial data contracts documented in BUSINESS_DISCOVERY.md (9b28a5a) and DATA_CONTRACTS.md (fac0ba7). Documentation baseline complete; assumptions are fictional, not client-verified. Next: implement order-to-cash entities and reconciliation with runtime verification. Pages activation remains unverified.
+
+## MAC-04
+Ten synthetic entity CSVs, dependency-ordered SQLite ingestion, foreign keys, typed validation, raw/rejection/summary outputs, ignore rules and regression test committed on mac-data-engineering. Ingestion ecd59e2; test 53c53bd. Expected five rejects and EUR 2100 order value. Runtime not verified; source milestone complete, acceptance open. JSON exports not atomic with database; incremental lineage, reconciliation and PostgreSQL pending. Next verify runtime before MAC-05.
