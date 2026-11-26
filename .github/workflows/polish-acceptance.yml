@@ -44,3 +44,5 @@ jobs:
 # Revalidate unambiguous footer controls.
 
 # Revalidate onscreen CDP gesture coordinates.
+
+# Prevent scroll momentum and verify settled mobile boundaries.
