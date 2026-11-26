@@ -1,0 +1,4 @@
+line_id,order_id,product_id,quantity,unit_price_cents
+L001,O001,P001,10,12500
+L002,O002,P002,10,8500
+L003,O999,P001,1,100
