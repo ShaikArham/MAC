@@ -26,3 +26,5 @@ jobs:
 # Retry mobile gesture boundary retention.
 
 # Confirm nested mobile scrolling and gesture event target.
+
+# Retry after fixing diagnostic-only ReferenceError.
