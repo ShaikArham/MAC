@@ -1,0 +1,17 @@
+name: Interactive browser acceptance
+on:
+  push:
+    branches: [mac-interactive-release]
+    paths: ['.github/workflows/interactive-test.yml']
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm install --no-save playwright
+      - run: npx playwright install --with-deps chromium
+      - run: |
+          python -m http.server 8000 &
+          node tests/browser.cjs
