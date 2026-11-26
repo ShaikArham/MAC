@@ -1,0 +1,2 @@
+# MAC-05 connectors
+Python 3.10+; install integrations/requirements.txt. Run python -m unittest discover -s tests -v. Registry reads local CSV, active-sheet XLSX, JSON arrays, and simulated accounting/CRM response envelopes {"simulated":true,"records":[]}. Health is in-memory and updated on reads; no network calls, scheduling, persistent registry or HTTP server. Output is raw records, not canonical ETL. Local prototype tests: 2 passed. Committed source has not been independently hash-verified against local files.
