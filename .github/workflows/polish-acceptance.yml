@@ -28,3 +28,5 @@ jobs:
 # Confirm nested mobile scrolling and gesture event target.
 
 # Retry after fixing diagnostic-only ReferenceError.
+
+# Mobile peak swipe retention and post-event heading acceptance.
