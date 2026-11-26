@@ -1,0 +1,2 @@
+# Synthetic data foundation
+Run python pipelines/ingest.py from the repository root using Python 3. No dependencies required. SQLite is a local prototype, not the final PostgreSQL deployment. Input includes intentionally invalid records. Output contains accepted order totals and quarantined records. Order value is not recognized revenue. Snapshot rebuilds are repeatable; production incremental ingestion and audit history are pending.
