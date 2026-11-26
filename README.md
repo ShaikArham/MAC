@@ -6,6 +6,12 @@
 
 MAC is an independent data engineering and custom business software initiative for a fictional Irish building materials and trade supplies distributor, Horizon Supplies.
 
+## Start here for technical review
+
+- [Technical reviewer guide](docs/TECHNICAL_REVIEW.md) — architecture, source locations, local startup, dataset totals, validation and limitations.
+- [Published application code](https://github.com/ShaikArham/MAC/tree/gh-pages)
+- [Engineering tracker](docs/MASTER_TRACKER.md)
+
 ## Explore
 - Command Centre: historical orders, fulfilment and financial controls.
 - Operations: sales, inventory, customers, products, suppliers and invoices.
