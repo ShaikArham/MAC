@@ -3,6 +3,7 @@ function answerMAC(s,question){
  const unavailable={answer:"Snapshot unavailable or unsupported.",evidence:[],action:"Load a valid synthetic snapshot."};
  if(!s||s.schema_version!==1||s.synthetic!==true||!s.monitoring||!s.reconciliation||!s.summary)return unavailable;
  const q=String(question).trim().toLowerCase(),m=s.summary,z=s.monitoring,f=s.reconciliation;
+ if(![f.invoices,f.stock,f.exceptions,z.rejections,z.batches,z.sources].every(Array.isArray)||![f.outstanding_cents,f.overpaid_cents,m.accepted,m.rejected,m.order_value_cents].every(Number.isSafeInteger)||!m.entity_counts)return unavailable;
  const euro=n=>new Intl.NumberFormat("en-IE",{style:"currency",currency:"EUR"}).format(n/100);
  const out=(answer,evidence,action)=>({answer,evidence,action});
  if(/\b(send|delete|update|execute|transfer|pay|approve|modify|ignore|password|secret)\b/.test(q))return out("MAC is read-only and cannot perform actions or disclose secrets.",[],"Review records manually.");
