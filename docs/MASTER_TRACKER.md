@@ -39,3 +39,6 @@ Backend source commits f269ce0 (persistent registry, canonical mapping and MAC-0
 
 ## MAC-05 scoped runtime acceptance — PASS
 HTTP registry wiring 6783562; combined regression 284ceb8. Isolated combined checkout: 7/7 tests passed in 1.127s; six backend Python blob hashes matched remote. End-to-end 10 sources (2 loopback HTTP, 8 CSV), 22 rows, 17 accepted, 5 rejected, EUR 2100 order value. Persistent health verified. No failing tests observed. Verification report docs/MAC05_VERIFICATION.md on mac-backend. Local on-demand integration accepted; scheduled monitoring, atomic publication, multi-process registry, durable endpoint configuration and branch integration remain open. Next MAC-06 advanced ETL. No deployment or merge.
+
+## MAC-06 source checkpoint
+Incremental append-only SQLite ETL in pipelines/incremental.py (c5a200b), regression source tests/test_incremental.py. Bronze raw, Silver validated records, quarantine, Gold summary and batch status published in one SQLite transaction; lineage via batch/entity/ordinal; same batch digest replay returns prior result; failed transaction rolls back data and records failure. Source only: runtime not executed or independently verified. Existing keys rejected; updates/deletes, attempt history, crash recovery tests, connector wiring and PostgreSQL pending. Next verify actual runtime before acceptance.
