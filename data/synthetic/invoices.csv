@@ -1,0 +1,3 @@
+invoice_id,order_id,amount_cents,issued_date
+I001,O001,125000,2026-01-02
+I002,O002,85000,2026-01-03
