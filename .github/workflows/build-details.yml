@@ -1,0 +1,24 @@
+name: Build relational details
+on:
+  push:
+    branches: [mac-interactive-release]
+    paths: ['.github/workflows/build-details.yml']
+permissions:
+  contents: write
+jobs:
+  details:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          python -m pipelines.generate_enterprise /tmp/mac --orders 50000
+          python -c "from pathlib import Path; from pipelines.ingest import run; print(run(Path('/tmp/mac')))"
+          python -m pipelines.export_records /tmp/mac /tmp/check
+          python -c "import json; assert json.load(open('/tmp/check/manifest.json')) == json.load(open('records/manifest.json'))"
+          python -m pipelines.export_details /tmp/mac details
+          python -c "import json,hashlib,pathlib; m=json.load(open('details/manifest.json')); assert all(hashlib.sha256(pathlib.Path('details',k+'.json').read_bytes()).hexdigest()==v['sha256'] for k,v in m.items()); assert sum(v['count'] for k,v in m.items() if k.startswith('order_lines-'))==149966"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add details
+          git commit -m "Generate verified relational details"
+          git push origin HEAD:mac-interactive-release
