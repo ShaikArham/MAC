@@ -1,0 +1,6 @@
+order_id,customer_id,amount_cents,status
+O001,C001,125000,fulfilled
+O002,C002,85000,pending
+O003,C999,40000,pending
+O001,C001,125000,fulfilled
+O004,C002,-500,pending
