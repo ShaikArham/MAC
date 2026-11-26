@@ -24,3 +24,5 @@ jobs:
 # Retry after restoring monthly response contract.
 
 # Retry mobile gesture boundary retention.
+
+# Confirm nested mobile scrolling and gesture event target.
