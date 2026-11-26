@@ -3,17 +3,20 @@ import csv, json, sqlite3, tempfile, os
 from pathlib import Path
 from contextlib import closing
 from pipelines.ingest import ROOT, SPEC
-from pipelines.incremental import run_batch
+from pipelines.connected_batch import run_connected
+from integrations.connectors import Source
+from integrations.snapshot import PersistentRegistry
 from pipelines.reconcile import reconcile
 
 def build():
-    records={}
-    for entity in SPEC:
-        with (ROOT/"data/synthetic"/(entity+".csv")).open(newline="",encoding="utf-8") as f:
-            records[entity]=list(csv.DictReader(f))
     with tempfile.TemporaryDirectory() as d:
         path=Path(d)/"etl.sqlite"
-        summary=run_batch(path,"preview",records)
+        registry=PersistentRegistry(ROOT/"data/synthetic",Path(d)/"registry.sqlite")
+        bindings={}
+        for entity,(pk,fields,_) in SPEC.items():
+            registry.register(Source(entity,"csv",entity+".csv"))
+            bindings[entity]=(entity,{c:c for c in [pk,*fields]})
+        summary=run_connected(path,"preview",registry,bindings)
         report=reconcile(path,[dict(product_id="P001",warehouse_id="W001",opening=0,observed=88)])
         rows={entity:[] for entity in SPEC}
         with closing(sqlite3.connect(path)) as db:
