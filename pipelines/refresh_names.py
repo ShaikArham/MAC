@@ -23,3 +23,15 @@ for entity,names,key in [('customers',CUSTOMERS,'customer_id'),('suppliers',SUPP
 save('details/manifest.json',manifest)
 save('snapshot.json',snapshot)
 print('600 distinct names, preserved identifiers and transaction references')
+
+# Verify every transaction shard remains byte-identical to frozen release.
+for folder in ('records','details'):
+    for path in Path(folder).glob('*.json'):
+        if path.name in ('customers.json','suppliers.json','manifest.json') and folder=='details': continue
+        assert path.read_bytes()==subprocess.check_output(['git','show','HEAD:'+str(path)]),str(path)
+old=json.loads(subprocess.check_output(['git','show','HEAD:snapshot.json']))
+new=load('snapshot.json')
+for key in ('summary','finance','monthly','operations','quality','monitoring'):
+    assert old[key]==new[key],key
+assert len(set(x.casefold() for x in CUSTOMERS+SUPPLIERS))==600
+print('Financial totals and all transaction partitions unchanged:',new['finance'],new['summary']['order_value_cents'])
