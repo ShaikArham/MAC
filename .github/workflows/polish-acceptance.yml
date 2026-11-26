@@ -37,3 +37,5 @@ jobs:
 # Correct test touch origin: avoid blocked Command Centre input.
 
 # Focus Inventory mobile reverse origin before full suite.
+
+# Full mobile forward/back navigation, including explicit footer controls.
