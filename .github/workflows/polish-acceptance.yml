@@ -42,3 +42,5 @@ jobs:
 # Full mobile forward/back navigation, including explicit footer controls.
 
 # Revalidate unambiguous footer controls.
+
+# Revalidate onscreen CDP gesture coordinates.
