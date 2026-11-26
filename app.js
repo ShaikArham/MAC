@@ -78,8 +78,8 @@ function macNextWorkspace(name){document.querySelector('#mac-next-workspace')?.r
 /* Deliberate edge overscroll: never switch while editing or scrolling a table. */
 (function(){
  let last=0,amount=0,direction=0,touch=null;
- function blocked(target){return target instanceof Element&&!!target.closest('aside,.assistant,.scroll,input,select,textarea,button,a,[contenteditable]')}
- function edge(d){const el=document.scrollingElement;return d>0?el.scrollTop+innerHeight>=el.scrollHeight-3:el.scrollTop<=3}
+ function blocked(target){return target instanceof Element&&!!target.closest('aside,.scroll,input,select,textarea,button,a,[contenteditable]')}
+ function edge(d){const el=document.scrollingElement;return d>0?document.querySelector('main').getBoundingClientRect().bottom<=innerHeight+3||el.scrollTop+innerHeight>=el.scrollHeight-3:el.scrollTop<=3}
  function move(d){const names=[...nav.querySelectorAll('button')].map(b=>b.textContent),i=names.indexOf(document.querySelector('#heading').textContent),next=names[i+d];if(!next)return;last=performance.now();amount=0;show(next)}
  window.addEventListener('wheel',e=>{if(e.ctrlKey||blocked(e.target)||Math.abs(e.deltaX)>Math.abs(e.deltaY))return;const d=Math.sign(e.deltaY);if(!d||!edge(d)||performance.now()-last<850){amount=0;return}if(direction!==d)amount=0;direction=d;amount+=Math.abs(e.deltaY)*(e.deltaMode===1?16:1);if(amount>=100)move(d)},{passive:true});
  window.addEventListener('touchstart',e=>{touch=e.touches.length===1&&!blocked(e.target)?{x:e.touches[0].clientX,y:e.touches[0].clientY,top:edge(-1),bottom:edge(1)}:null},{passive:true});
