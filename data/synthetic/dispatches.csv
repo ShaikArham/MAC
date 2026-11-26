@@ -1,0 +1,2 @@
+dispatch_id,order_id,status,timestamp
+D001,O001,delivered,2026-01-02T10:00:00+00:00
