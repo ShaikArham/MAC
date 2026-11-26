@@ -111,3 +111,6 @@ Final corrected acceptance run [45893422344](https://github.com/ShaikArham/MAC/a
 
 ### Frozen verified release — 26 November 2026
 GitHub Pages run [45893533891](https://github.com/ShaikArham/MAC/actions/runs/45893533891) completed successfully for exact commit `33fe7af2c18c7baa9f4f6b21c0f91a1766852cf5`, also confirmed as current gh-pages head. Release frozen by user instruction: no further implementation, deployment or custom workflows without explicit approval. Browser acceptance run 45893422344 passed. Mobile coverage is selected workspaces at 320/375/430/1440; next-workspace navigation is explicit. No independent live-device verification. Next phase: presentation materials.
+
+### Targeted correction sprint reopened
+User authorized directory variety and bidirectional edge navigation only. Candidate mac-final-corrections. Run 45894298930 passed directory refresh and references, failed browser wheel acceptance. Retry commit 395489c adds explicit mobile CDP touch gestures, workspace boundary correction and byte-identical transaction/financial invariant checks. Public release remains 33fe7af until all acceptance gates pass. Names are deterministic coined stems with varied sector/legal descriptors, not individually authored.
