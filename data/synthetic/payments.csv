@@ -1,0 +1,4 @@
+payment_id,invoice_id,amount_cents,paid_date
+PAY001,I001,125000,2026-01-05
+PAY002,I002,20000,2026-01-05
+PAY003,I999,100,2026-01-05
