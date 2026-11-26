@@ -77,11 +77,11 @@ function macNextWorkspace(name){document.querySelector('#mac-next-workspace')?.r
 
 /* Deliberate edge overscroll: never switch while editing or scrolling a table. */
 (function(){
- let last=0,amount=0,direction=0,touch=null;
+ let last=-Infinity,amount=0,direction=0,touch=null;
  function blocked(target){return target instanceof Element&&!!target.closest('aside,.scroll,input,select,textarea,button,a,[contenteditable]')}
  function edge(d){const el=document.scrollingElement;const end=(document.querySelector('#mac-next-workspace')||view).getBoundingClientRect();return d>0?(end.bottom<=innerHeight+24&&end.bottom>=0)||el.scrollTop+innerHeight>=el.scrollHeight-3:el.scrollTop<=3}
  function move(d){const names=[...nav.querySelectorAll('button')].map(b=>b.textContent),i=names.indexOf(document.querySelector('#heading').textContent),next=names[i+d];if(!next)return;last=performance.now();amount=0;show(next)}
- window.addEventListener('wheel',e=>{if(e.ctrlKey||blocked(e.target)||Math.abs(e.deltaX)>Math.abs(e.deltaY))return;const d=Math.sign(e.deltaY);if(!d||!edge(d)||performance.now()-last<850){amount=0;return}if(direction!==d)amount=0;direction=d;amount+=Math.abs(e.deltaY)*(e.deltaMode===1?16:1);if(amount>=100)move(d)},{passive:true});
+ window.addEventListener('wheel',e=>{const d=Math.sign(e.deltaY),denied=blocked(e.target),atEdge=edge(d),cooldown=performance.now()-last<850;console.debug('MAC_EDGE_HANDLER',JSON.stringify({d,denied,atEdge,cooldown,ctrl:e.ctrlKey,dx:e.deltaX,dy:e.deltaY}));if(e.ctrlKey||denied||Math.abs(e.deltaX)>Math.abs(e.deltaY))return;if(!d||!atEdge||cooldown){amount=0;return}if(direction!==d)amount=0;direction=d;amount+=Math.abs(e.deltaY)*(e.deltaMode===1?16:1);if(amount>=100){if(e.cancelable)e.preventDefault();move(d)}},{capture:true,passive:false});
  window.addEventListener('touchstart',e=>{touch=e.touches.length===1&&!blocked(e.target)?{x:e.touches[0].clientX,y:e.touches[0].clientY,top:edge(-1),bottom:edge(1)}:null},{passive:true});
  window.addEventListener('touchmove',e=>{if(!touch||e.touches.length!==1)return;const p=e.touches[0],dy=touch.y-p.clientY;if(Math.abs(dy)<12||Math.abs(p.clientX-touch.x)>Math.abs(dy))return;const d=Math.sign(dy);if((d>0?touch.bottom:touch.top)&&edge(d)&&e.cancelable)e.preventDefault()},{passive:false});
  window.addEventListener('touchend',e=>{if(!touch)return;const t=touch;touch=null;const p=e.changedTouches[0];if(!p||performance.now()-last<850)return;const dy=t.y-p.clientY;if(Math.abs(dy)<75||Math.abs(p.clientX-t.x)>Math.abs(dy))return;const d=Math.sign(dy);if((d>0?t.bottom:t.top)&&edge(d))move(d)},{passive:true});
