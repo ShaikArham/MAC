@@ -7,6 +7,7 @@ from pipelines.connected_batch import run_connected
 from integrations.connectors import Source
 from integrations.snapshot import PersistentRegistry
 from pipelines.reconcile import reconcile
+from pipelines.monitor import collect
 
 def build():
     with tempfile.TemporaryDirectory() as d:
@@ -22,7 +23,7 @@ def build():
         with closing(sqlite3.connect(path)) as db:
             for entity,record in db.execute("SELECT entity,record FROM silver ORDER BY entity,key"):
                 rows[entity].append(json.loads(record))
-        return dict(schema_version=1,synthetic=True,mode="generated_snapshot",summary=summary,records=rows,reconciliation=report)
+        return dict(schema_version=1,synthetic=True,mode="generated_snapshot",summary=summary,records=rows,reconciliation=report,monitoring=collect(path,registry))
 def publish(destination):
     destination=Path(destination)
     payload=json.dumps(build(),indent=2,allow_nan=False)
