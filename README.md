@@ -12,6 +12,8 @@ MAC is an independent data engineering and custom business software initiative f
 - [Published application code](https://github.com/ShaikArham/MAC/tree/gh-pages)
 - [Architecture and data engineering](docs/ARCHITECTURE_REVIEW.md)
 - [Application and Copilot review](docs/APPLICATION_REVIEW.md)
+- [Canonical data dictionary](docs/DATA_DICTIONARY_REVIEW.md)
+- [Validation and operational limitations](docs/VALIDATION_REVIEW.md)
 - [Engineering tracker](docs/MASTER_TRACKER.md)
 
 ## Explore
