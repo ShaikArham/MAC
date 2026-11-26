@@ -73,7 +73,7 @@ function macDiscovery(name,s){
  const insights=document.querySelector('#insights');insights.replaceChildren(macEl('h3','Explore the business'),macButton('Business overview',()=>show('Business overview')),macButton('Process mapping',()=>show('Process mapping')),macButton('System mapping',()=>show('System mapping')));
 }
 
-function macNextWorkspace(name){document.querySelector('#mac-next-workspace')?.remove();const names=[...nav.querySelectorAll('button')].map(b=>b.textContent);const i=names.indexOf(name);if(i<0||i===names.length-1)return;const next=macEl('div');next.id='mac-next-workspace';next.append(macEl('p','Continue exploring'),macButton('Next: '+names[i+1]+' →',()=>show(names[i+1])));view.after(next)}
+function macNextWorkspace(name){document.querySelector('#mac-next-workspace')?.remove();const names=[...nav.querySelectorAll('button')].map(b=>b.textContent);const i=names.indexOf(name);if(i<0)return;const next=macEl('div');next.id='mac-next-workspace';next.append(macEl('p','Continue exploring'));if(i>0)next.append(macButton('← Previous: '+names[i-1],()=>show(names[i-1])));if(i<names.length-1)next.append(macButton('Next: '+names[i+1]+' →',()=>show(names[i+1])));view.after(next)}
 
 /* Deliberate edge overscroll: never switch while editing or scrolling a table. */
 (function(){
