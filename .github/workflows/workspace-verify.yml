@@ -24,3 +24,5 @@ jobs:
         run: |
           python -m http.server 8000 &
           node tests/browser.cjs
+
+# Final UI acceptance: latest filters, illustrations and viewport checks.
