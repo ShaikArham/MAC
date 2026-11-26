@@ -85,3 +85,6 @@ User requires every record, meaningful chart and navigation tab to be functional
 
 ## Interactive sprint verification
 66 relational partitions generated successfully (run 45886665836). Browser acceptance run 45886799369 succeeded at dcb0ed0; logs confirm chart, order detail, CSV, pagination, navigation and four viewport overflow checks. Added discovery/engineering drill-down and inventory movement browsing b5b50c2, routed all enterprise workspaces 7565fe0, expanded tests 1f9723c, regression trigger e9be424. Latest regression pending; gh-pages unchanged pending exact release verification. Remaining acceptance includes deeper finance/customer relationships, copilot evidence scope, individual mobile interactions and live publication.
+
+## Final candidate
+Expanded browser regression e9be424 passed (run 45887066879). Added customer order totals and invoice-specific payment detail 445fb55; selected-month sales copilot fed1401; expanded browser tests 97a05d2; final candidate f538927. Final candidate workflow triggered; promotion requires successful exact-head result. Annual stock and finance copilot figures remain annual, no live writes.
