@@ -30,3 +30,6 @@ Ten synthetic entity CSVs, dependency-ordered SQLite ingestion, foreign keys, ty
 
 ## MAC-04 runtime acceptance — PASS
 Baseline f253e1f; 12 local files matched retrieved Git blob hashes. Local pipeline executed successfully: 10 entities, 22 rows, 17 accepted, 5 rejected, EUR 2100 order value. Regression suite 1/1 passed including repeatability and foreign key check. No evidenced defect in scoped checks; no code fixes required. Verification report on mac-data-engineering at docs/MAC04_VERIFICATION.md. MAC-04 local snapshot scope accepted. Remaining production gaps: PostgreSQL, incremental lineage, atomic JSON publication, reconciliation, frontend integration. Next MAC-05 connected systems. No deployment or Actions run.
+
+## MAC-05 connector prototype
+mac-backend commits 8ca9b76 (connectors), 9c4b66c (tests), 139de72 (dependency), f2f48fd (docs). Local isolated unittest run: 2 tests passed, covering five connector types, duplicate registration, missing file, path escape and invalid simulation envelope. Registry and health are in-memory, read-triggered. Accounting/CRM are local response fixtures, not HTTP endpoints. Canonical mapping, durable registry, scheduled monitoring and integration with MAC-04 remain open. No deployment or external calls. Committed source not independently hash-verified. Next complete connector integration before MAC-06 acceptance.
