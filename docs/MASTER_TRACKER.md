@@ -103,3 +103,6 @@ Release `fa98587` passed consolidated workflow [45888840034](https://github.com/
 
 ### About and search release (2026-11-26)
 `mac-about-order-filters` → `gh-pages` at `54859dfd9a20597704ee6a5ec6e375884deb3d5d`. Browser validation workflow 45891495494 succeeded including navigation, order filtering, CSV, About headings and 320/375/430/1440 viewport overflow assertions. Self-contained About pages, combined year/month, order ID, customer ID/name, inclusive date, fulfilment status and euro amount-range filters, clickable orders and CSV. Pages deployment run [45891621027](https://github.com/ShaikArham/MAC/actions/runs/45891621027) completed successfully for the exact promoted commit. No claims of independent manual device validation. The synthetic dataset is unchanged.
+
+### Final workspace UI acceptance
+Run 45893136782 failed at mobile Products navigation because the test did not open the collapsed menu. Both About SVGs loaded and earlier desktop assertions progressed. Test corrected at 0a012ca to click visible menu before selecting tabs; consolidated retry triggered at 33fe7af. Publication remains gated on successful verification; no dataset changes.
