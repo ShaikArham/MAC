@@ -40,3 +40,5 @@ jobs:
 # Focus Inventory mobile reverse origin before full suite.
 
 # Full mobile forward/back navigation, including explicit footer controls.
+
+# Revalidate unambiguous footer controls.
