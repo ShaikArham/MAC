@@ -8,6 +8,6 @@ test('financial balances',()=>assert.equal(snap.finance.invoiced_cents-snap.fina
 test('bounded samples clearly labeled',()=>{const v=enterpriseViews(snap);assert.equal(v['Sales orders'].total,50000);assert.equal(v['Sales orders'].rows.length,14);assert.equal(v.Finance.total,47008)});
 test('warehouse stock exceptions',()=>assert.equal(snap.operations.warehouse_stats.reduce((n,x)=>n+x.exceptions,0),131));
 test('all navigation workspaces populated',()=>assert.equal(Object.keys(enterpriseViews(snap)).length,16));
-test('finance answer grounded',()=>assert.match(answerEnterprise(snap,'outstanding invoices').answer,/11,134,190/));
+test('finance answer grounded',()=>assert.match(answerEnterprise(snap,'outstanding invoices').answer,/11,134,189\.50/));
 test('unsafe actions refused',()=>assert.match(answerEnterprise(snap,'delete invoices').answer,/read-only/));
 test('malformed totals rejected',()=>{const invalid={...snap,finance:{...snap.finance,outstanding_cents:1}};assert.throws(()=>validateEnterprise(invalid));assert.match(answerEnterprise(invalid,'finance').answer,/invalid/) });
