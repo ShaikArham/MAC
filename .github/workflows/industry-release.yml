@@ -1,0 +1,43 @@
+name: Industry release
+on:
+  push:
+    branches: [mac-industry-release]
+    paths: ['.github/workflows/industry-release.yml']
+permissions:
+  contents: write
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          python -m pipelines.generate_enterprise /tmp/mac --orders 50000
+          python -c "from pipelines.export_enterprise import publish; publish('snapshot.json','/tmp/mac')"
+          python -m pipelines.export_records /tmp/mac records
+          python -m pipelines.export_details /tmp/mac details
+          python - <<'PY'
+          import json,hashlib,pathlib
+          s=json.load(open('snapshot.json'))
+          assert s['summary']['entity_counts']['orders']==50000
+          assert s['summary']['rejected_rows']==2
+          assert sum(x['order_value_cents'] for x in s['monthly'])==s['summary']['order_value_cents']
+          m=json.load(open('details/manifest.json'))
+          assert all(hashlib.sha256(pathlib.Path('details',k+'.json').read_bytes()).hexdigest()==v['sha256'] for k,v in m.items())
+          p=json.load(open('details/products.json'))
+          assert len(p)==2000 and all(x['category'] and x['unit'] and x['price_cents']>0 for x in p)
+          prices={x['product_id']:x['price_cents'] for x in p}
+          for f in pathlib.Path('details').glob('order_lines-*.json'):
+              assert all(x['unit_price_cents']==prices[x['product_id']] for x in json.loads(f.read_text()))
+          assert {x['warehouse'] for x in json.load(open('details/stock_counts.json'))}=={'Dublin','Cork','Galway'}
+          PY
+      - run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+          python -m http.server 8000 &
+          node tests/browser.cjs
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add snapshot.json records details
+          git commit -m "Publish validated industry dataset and browser-tested release"
+          git push origin HEAD:mac-industry-release
