@@ -79,3 +79,6 @@ Committed monthly exporter on mac-enterprise-data 523993d (blob 02486e77ee5aa2ed
 
 ## Explorer release
 GitHub isolated workflow regenerated twelve shards and matched exact local SHA-256 manifest (blob 5d9abbd8f7ea9f2430c5dba702d251345a9556e0); workflow success, generated commit cbcffb04. Integrated explorer with Sales orders, lazy month/all-year lookup, status, 25-row pagination, CSV and responsive controls. Fast-forwarded gh-pages from b11a01b to 22768c2; previous baseline retained. New browser runtime and mobile tests not executed; frontend branch sync pending. Workflow scoped to release branch only.
+
+## Interactive application sprint
+User requires every record, meaningful chart and navigation tab to be functional, with linked detail views and shared filters. Acceptance contract: docs/INTERACTIVE_ACCEPTANCE.md. Implementation and browser acceptance pending.
