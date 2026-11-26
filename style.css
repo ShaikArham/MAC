@@ -36,3 +36,6 @@
 
 /* Keep edge gestures inside MAC instead of browser pull-to-refresh. */
 html,body{overscroll-behavior-y:none}
+
+/* Safe gesture surfaces; ordinary content and table scrolling remain native. */
+.notice,#mac-next-workspace{touch-action:none}
