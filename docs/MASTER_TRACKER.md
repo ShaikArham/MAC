@@ -91,3 +91,6 @@ Expanded browser regression e9be424 passed (run 45887066879). Added customer ord
 
 ## Presentation readiness
 Final interactive candidate f538927 passed browser run 45887255675. Added Command Centre business introduction, About MAC and About the builder with real workspace links and transparent independent synthetic scope (35055c9, d6758db, 179ac53). Consolidated browser test includes narrative navigation (95a0397); one new regression triggered at 6ce0a6c. Publish only after exact-head success. No repeated per-feature workflows.
+
+## Presentation release promotion
+Consolidated browser run 45887555751 completed successfully at 6ce0a6c898461e858cf7a3a7bde772718a1a281a. Logs confirm navigation, detail, CSV, pagination and four viewport checks; suite includes About MAC and builder navigation. Fast-forwarded gh-pages from 22768c2 to exact tested commit. Standard Pages run 45887643518 in progress at inspection. No extra custom workflow triggered. Visual screenshot review and exhaustive individual control acceptance remain unverified; checkout v4 Node 20 deprecation warning nonblocking.
