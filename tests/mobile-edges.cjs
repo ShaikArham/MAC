@@ -12,4 +12,9 @@ await swipe(1);await page.waitForFunction(()=>document.querySelector('#heading')
 await page.waitForTimeout(1000);await page.evaluate(()=>scrollTo(0,0));await page.waitForTimeout(120);
 await swipe(-1);await page.waitForFunction(()=>document.querySelector('#heading').textContent==='System mapping',{timeout:5000});
 console.log('MOBILE_EDGE_FOCUSED_PASSED');
+await page.locator('#menu').click();await page.locator('#nav').getByRole('button',{name:'Inventory',exact:true}).click();
+await page.waitForTimeout(1050);await page.evaluate(()=>scrollTo(0,0));
+console.log('INVENTORY_TOUCH_ORIGIN',await page.evaluate(()=>{const b=document.querySelector('.notice').getBoundingClientRect();const x=Math.round(b.x+b.width/2),y=Math.round(b.y+b.height/2);return {x,y,target:document.elementFromPoint(x,y)?.outerHTML?.slice(0,250),heading:document.querySelector('#heading').textContent,scroll:scrollY}}));
+await swipe(-1);await page.waitForFunction(()=>document.querySelector('#heading').textContent==='Sales orders',{timeout:5000});
+console.log('INVENTORY_REVERSE_PASSED');
 }finally{await browser.close()}})().catch(e=>{console.error(e);process.exit(1)});
