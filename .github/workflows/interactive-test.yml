@@ -17,3 +17,5 @@ jobs:
           node tests/browser.cjs
 
 # Regression checkpoint 2
+
+# Final candidate regression
