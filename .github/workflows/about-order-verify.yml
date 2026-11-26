@@ -1,0 +1,26 @@
+name: About and order filter browser verification
+on:
+  push:
+    branches: [mac-about-order-filters]
+    paths:
+      - .github/workflows/about-order-verify.yml
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Syntax check
+        run: |
+          node --check interactive.js
+          node --check app.js
+          node --check tests/browser.cjs
+      - name: Install browser
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - name: Run real browser checks
+        run: |
+          python -m http.server 8000 &
+          node tests/browser.cjs
