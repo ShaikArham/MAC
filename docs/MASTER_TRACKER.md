@@ -88,3 +88,6 @@ User requires every record, meaningful chart and navigation tab to be functional
 
 ## Final candidate
 Expanded browser regression e9be424 passed (run 45887066879). Added customer order totals and invoice-specific payment detail 445fb55; selected-month sales copilot fed1401; expanded browser tests 97a05d2; final candidate f538927. Final candidate workflow triggered; promotion requires successful exact-head result. Annual stock and finance copilot figures remain annual, no live writes.
+
+## Presentation readiness
+Final interactive candidate f538927 passed browser run 45887255675. Added Command Centre business introduction, About MAC and About the builder with real workspace links and transparent independent synthetic scope (35055c9, d6758db, 179ac53). Consolidated browser test includes narrative navigation (95a0397); one new regression triggered at 6ce0a6c. Publish only after exact-head success. No repeated per-feature workflows.
