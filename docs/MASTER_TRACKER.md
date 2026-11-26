@@ -27,3 +27,6 @@ Scenario discovery and initial data contracts documented in BUSINESS_DISCOVERY.m
 
 ## MAC-04
 Ten synthetic entity CSVs, dependency-ordered SQLite ingestion, foreign keys, typed validation, raw/rejection/summary outputs, ignore rules and regression test committed on mac-data-engineering. Ingestion ecd59e2; test 53c53bd. Expected five rejects and EUR 2100 order value. Runtime not verified; source milestone complete, acceptance open. JSON exports not atomic with database; incremental lineage, reconciliation and PostgreSQL pending. Next verify runtime before MAC-05.
+
+## MAC-04 runtime acceptance — PASS
+Baseline f253e1f; 12 local files matched retrieved Git blob hashes. Local pipeline executed successfully: 10 entities, 22 rows, 17 accepted, 5 rejected, EUR 2100 order value. Regression suite 1/1 passed including repeatability and foreign key check. No evidenced defect in scoped checks; no code fixes required. Verification report on mac-data-engineering at docs/MAC04_VERIFICATION.md. MAC-04 local snapshot scope accepted. Remaining production gaps: PostgreSQL, incremental lineage, atomic JSON publication, reconciliation, frontend integration. Next MAC-05 connected systems. No deployment or Actions run.
