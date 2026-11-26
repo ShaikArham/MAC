@@ -48,3 +48,5 @@ jobs:
 # Prevent scroll momentum and verify settled mobile boundaries.
 
 # Stabilize viewport after asynchronous workspace data render before reverse swipe.
+
+# Stable edge gesture zones and retained touch capture.
