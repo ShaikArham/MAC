@@ -76,3 +76,6 @@ Published GitHub Pages workflow run successful for current gh-pages head `b11a01
 
 ## Historical record explorer checkpoint
 Committed monthly exporter on mac-enterprise-data 523993d (blob 02486e77ee5aa2ed5e6edd35bdcfb0e442264e29). Executed against existing validated SQLite: 12 shards, 50,000 unique orders, 11976189238 cents, 2,588,346 bytes including manifest. All shard SHA-256, month, counts and monetary totals checked. Local explorer source implements lazy month loading, all-month lookup, status filter, 25-row pagination and CSV. Node four assertions passed; local load/filter/CSV combined 193ms. Local archive prepared. Bulk shard upload and frontend integration not completed; gh-pages unchanged to preserve working site. Browser/mobile acceptance pending.
+
+## Explorer release
+GitHub isolated workflow regenerated twelve shards and matched exact local SHA-256 manifest (blob 5d9abbd8f7ea9f2430c5dba702d251345a9556e0); workflow success, generated commit cbcffb04. Integrated explorer with Sales orders, lazy month/all-year lookup, status, 25-row pagination, CSV and responsive controls. Fast-forwarded gh-pages from b11a01b to 22768c2; previous baseline retained. New browser runtime and mobile tests not executed; frontend branch sync pending. Workflow scoped to release branch only.
