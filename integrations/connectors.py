@@ -18,7 +18,7 @@ class Registry:
     def register(self, source):
         if not source.id or source.id in self.sources:
             raise ValueError('missing or duplicate source ID')
-        if source.kind not in {'csv','excel','json','accounting','crm'}:
+        if source.kind not in {'csv','excel','json','accounting','crm','accounting_http','crm_http'}:
             raise ValueError('unsupported connector')
         self.sources[source.id] = source
         self.health[source.id] = {'status':'unchecked'}
@@ -34,6 +34,9 @@ class Registry:
         self.health[source_id] = {'status':'healthy','rows':len(rows),'checked_at':datetime.now(timezone.utc).isoformat()}
         return rows
     def _read(self, source):
+        if source.kind in {'accounting_http','crm_http'}:
+            from integrations.mock_http import fetch
+            return fetch(int(source.location), source.kind.removesuffix('_http'))
         path = (self.root / source.location).resolve()
         if not path.is_relative_to(self.root):
             raise ValueError('path outside fixture root')
