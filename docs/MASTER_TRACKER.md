@@ -94,3 +94,6 @@ Final interactive candidate f538927 passed browser run 45887255675. Added Comman
 
 ## Presentation release promotion
 Consolidated browser run 45887555751 completed successfully at 6ce0a6c898461e858cf7a3a7bde772718a1a281a. Logs confirm navigation, detail, CSV, pagination and four viewport checks; suite includes About MAC and builder navigation. Fast-forwarded gh-pages from 22768c2 to exact tested commit. Standard Pages run 45887643518 in progress at inspection. No extra custom workflow triggered. Visual screenshot review and exhaustive individual control acceptance remain unverified; checkout v4 Node 20 deprecation warning nonblocking.
+
+## Industry release
+Isolated mac-industry-release from gh-pages. Generator 805d262 now creates fictional trade names, catalogue-specific prices, category/unit metadata and warehouse lookup; details exporter 74c6845 publishes enriched partitions; UI 9689a72 removes aliases; aggregate exporter 6188b0d; asset version de98f38. Single regeneration/integrity/browser workflow 46a6e87. Promotion pending successful run and generated commit. Catalogue metadata remains source JSON joined during export, not normalized SQLite columns. Prices are illustrative, not market quotes. User-reported live navigation issue remains unverified on their browser.
