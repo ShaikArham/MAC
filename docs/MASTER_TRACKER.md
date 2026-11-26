@@ -106,3 +106,5 @@ Release `fa98587` passed consolidated workflow [45888840034](https://github.com/
 
 ### Final workspace UI acceptance
 Run 45893136782 failed at mobile Products navigation because the test did not open the collapsed menu. Both About SVGs loaded and earlier desktop assertions progressed. Test corrected at 0a012ca to click visible menu before selecting tabs; consolidated retry triggered at 33fe7af. Publication remains gated on successful verification; no dataset changes.
+
+Final corrected acceptance run [45893422344](https://github.com/ShaikArham/MAC/actions/runs/45893422344) passed at 33fe7af2c18c7baa9f4f6b21c0f91a1766852cf5. Browser logs confirm navigation, details, CSV, pagination and four viewport checks; expanded suite checks filters, reset, About illustrations and next navigation. Fast-forward promotion to gh-pages succeeded. Pages deployment confirmation pending. Mobile checks cover selected workspaces, not every interaction; next navigation is explicit, not automatic scrolling.
