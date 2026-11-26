@@ -27,7 +27,7 @@ Independent, unaffiliated technical demonstration. No real business/customer dat
 - Python legacy suite: 9/9 passed; enterprise pilot regression: 1/1 passed. Node enterprise interface/snapshot/copilot suite: 10/10 passed.
 - Original Python suite still emits unclosed SQLite ResourceWarnings; remediation pending.
 - New published JS/Python Git blobs verified against locally executed exact files (including `enterprise.js`, exporter, test, snapshot).
-- Public URL and desktop/mobile browser UI *not* independently verified after publication in this checkpoint.
+- GitHub Pages workflow was observed successful for gh-pages head b11a01b; direct external browser/mobile rendering still not independently verified. Node suite re-run 10/10 after precise EUR-cent formatting, test blob d8930fdec0421b040a0302caeef9b12a35a90b8d.
 
 ## Constraints / next acceptance
 Retain sampled-display labeling, add date validation to production schema when migrating the model, improve ingestion memory (observed peak about 750MB; raw JSON about 103MB), clear SQLite warnings, and verify GitHub Pages build & browser/mobile interactions. Generated fixtures and processed SQLite/raw files remain local; they must not be mistaken for committed transactional datasets.
