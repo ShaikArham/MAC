@@ -35,3 +35,5 @@ jobs:
 # Capture deliberate edge swipe on touchmove.
 
 # Correct test touch origin: avoid blocked Command Centre input.
+
+# Focus Inventory mobile reverse origin before full suite.
