@@ -51,3 +51,6 @@ Read-only Silver reconciliation engine 73a9b2d and fixture regression cc6df8e on
 
 ## MAC-08 workspace preview
 Six read-only searchable fixture workspaces (sales, inventory, finance, customers, suppliers, exceptions) added to existing dark shell. Frontend f79e4f6 / 2b6e384; gh-pages 8f0ead6 / ac613f6. Both branches returned identical JS/CSS blob hashes. Data manually transcribed from synthetic fixtures and illustrative stock count; no live API, editing or exception persistence. Browser and runtime tests not executed; Pages availability unverified. Next verify browser behavior and connect command centre to actual outputs in MAC-09.
+
+## MAC-09 exporter checkpoint
+Versioned synthetic snapshot exporter committed 4f1ed77 on mac-data-engineering; docs/PREVIEW_CONTRACT.md added on main. Uses MAC-04 canonical fixture schema, MAC-06 ETL and MAC-07 reconciliation. MAC-05 connector integration, actual exporter execution, generated JSON publication, frontend replacement and runtime verification remain open. Preview branches unchanged. No deployment.
