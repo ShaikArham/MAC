@@ -31,3 +31,5 @@ jobs:
           git add details/customers.json details/suppliers.json details/manifest.json snapshot.json
           git commit -m "Publish verified fictional directory on candidate branch"
           git push origin HEAD:mac-final-corrections
+
+# Retry with explicit mobile touch and financial invariants.
