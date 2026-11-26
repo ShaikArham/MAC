@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "synthetic": true,
+  "mode": "generated_snapshot",
+  "summary": {
+    "batch_id": "preview",
+    "accepted": 17,
+    "rejected": 5,
+    "entity_counts": {
+      "customers": 2,
+      "dispatches": 1,
+      "invoices": 2,
+      "order_lines": 2,
+      "orders": 2,
+      "payments": 2,
+      "products": 2,
+      "purchase_orders": 1,
+      "stock_movements": 2,
+      "suppliers": 1
+    },
+    "order_value_cents": 210000
+  },
+  "records": {
+    "customers": [
+      {
+        "customer_id": "C001",
+        "name": "Demo Retail North"
+      },
+      {
+        "customer_id": "C002",
+        "name": "Demo Retail South"
+      }
+    ],
+    "products": [
+      {
+        "name": "Demo cartons",
+        "product_id": "P001",
+        "sku": "SKU-001"
+      },
+      {
+        "name": "Demo tape",
+        "product_id": "P002",
+        "sku": "SKU-002"
+      }
+    ],
+    "suppliers": [
+      {
+        "name": "Demo Supplier",
+        "supplier_id": "S001"
+      }
+    ],
+    "orders": [
+      {
+        "amount_cents": 125000,
+        "customer_id": "C001",
+        "order_id": "O001",
+        "status": "fulfilled"
+      },
+      {
+        "amount_cents": 85000,
+        "customer_id": "C002",
+        "order_id": "O002",
+        "status": "pending"
+      }
+    ],
+    "order_lines": [
+      {
+        "line_id": "L001",
+        "order_id": "O001",
+        "product_id": "P001",
+        "quantity": 10,
+        "unit_price_cents": 12500
+      },
+      {
+        "line_id": "L002",
+        "order_id": "O002",
+        "product_id": "P002",
+        "quantity": 10,
+        "unit_price_cents": 8500
+      }
+    ],
+    "purchase_orders": [
+      {
+        "purchase_id": "PO001",
+        "status": "received",
+        "supplier_id": "S001"
+      }
+    ],
+    "stock_movements": [
+      {
+        "movement_id": "M001",
+        "product_id": "P001",
+        "quantity_delta": 100,
+        "timestamp": "2026-01-01T09:00:00+00:00",
+        "warehouse_id": "W001"
+      },
+      {
+        "movement_id": "M002",
+        "product_id": "P001",
+        "quantity_delta": -10,
+        "timestamp": "2026-01-02T09:00:00+00:00",
+        "warehouse_id": "W001"
+      }
+    ],
+    "dispatches": [
+      {
+        "dispatch_id": "D001",
+        "order_id": "O001",
+        "status": "delivered",
+        "timestamp": "2026-01-02T10:00:00+00:00"
+      }
+    ],
+    "invoices": [
+      {
+        "amount_cents": 125000,
+        "invoice_id": "I001",
+        "issued_date": "2026-01-02",
+        "order_id": "O001"
+      },
+      {
+        "amount_cents": 85000,
+        "invoice_id": "I002",
+        "issued_date": "2026-01-03",
+        "order_id": "O002"
+      }
+    ],
+    "payments": [
+      {
+        "amount_cents": 125000,
+        "invoice_id": "I001",
+        "paid_date": "2026-01-05",
+        "payment_id": "PAY001"
+      },
+      {
+        "amount_cents": 20000,
+        "invoice_id": "I002",
+        "paid_date": "2026-01-05",
+        "payment_id": "PAY002"
+      }
+    ]
+  },
+  "reconciliation": {
+    "invoices": [
+      {
+        "invoice_id": "I001",
+        "balance_cents": 0
+      },
+      {
+        "invoice_id": "I002",
+        "balance_cents": 65000
+      }
+    ],
+    "outstanding_cents": 65000,
+    "overpaid_cents": 0,
+    "stock": [
+      {
+        "product_id": "P001",
+        "warehouse_id": "W001",
+        "expected": 90,
+        "observed": 88,
+        "delta": -2
+      }
+    ],
+    "exceptions": [
+      {
+        "code": "stock_mismatch",
+        "key": [
+          "P001",
+          "W001"
+        ],
+        "delta": -2
+      }
+    ]
+  }
+}
