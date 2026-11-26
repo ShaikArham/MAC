@@ -33,3 +33,6 @@ Baseline f253e1f; 12 local files matched retrieved Git blob hashes. Local pipeli
 
 ## MAC-05 connector prototype
 mac-backend commits 8ca9b76 (connectors), 9c4b66c (tests), 139de72 (dependency), f2f48fd (docs). Local isolated unittest run: 2 tests passed, covering five connector types, duplicate registration, missing file, path escape and invalid simulation envelope. Registry and health are in-memory, read-triggered. Accounting/CRM are local response fixtures, not HTTP endpoints. Canonical mapping, durable registry, scheduled monitoring and integration with MAC-04 remain open. No deployment or external calls. Committed source not independently hash-verified. Next complete connector integration before MAC-06 acceptance.
+
+## MAC-05 integration checkpoint
+Backend source commits f269ce0 (persistent registry, canonical mapping and MAC-04 snapshot adapter), e491d6d (loopback fixture HTTP server/client), tests/test_snapshot.py added. Source only this checkpoint; tests not executed. Adapter requires combined checkout with MAC-04 pipeline; HTTP client not yet wired into registry. Single-process registry; snapshot copy is not atomic; scheduled monitoring remains open. Next run combined isolated tests and wire HTTP sources before acceptance.
