@@ -3,8 +3,7 @@ import random,csv,calendar
 from datetime import date,timedelta
 from pathlib import Path
 from pipelines.ingest import SPEC
-PLACES="Liffey Ballymore Oakfield Westhaven Riverstone Glenbrook Northbridge Ashgrove Kilmore Harbourview Silverwood Cedarhill Greenbank Rockfield Meadowvale Brookside Hillcrest Fairview Woodland Southridge Elmpark Riverside Clonfield Lakeview Millbrook".split()
-TYPES=["Construction","Civil Engineering","Property Maintenance","Building Contractors","Trade Merchants","Roofing Services","Electrical Contractors","Plumbing Services","Fit-Out Specialists","Groundworks","Renovations","Facilities Services","Joinery","Developments","Building Services","Landscaping","Mechanical Services","Interiors","Masonry","Infrastructure"]
+from pipelines.business_names import CUSTOMERS, SUPPLIERS
 GOODS=[("Cement","General purpose cement 25kg","bag",850),("Cement","Ready-mix mortar 20kg","bag",1100),("Masonry","Concrete block 440mm","each",220),("Insulation","PIR insulation board","board",4200),("Insulation","Mineral wool insulation","pack",3800),("Timber","Structural timber C24","length",1800),("Timber","OSB sheathing board","sheet",2600),("Drylining","Moisture resistant plasterboard","sheet",1900),("Paint","Interior emulsion 10L","tin",4500),("Paint","Exterior masonry paint 10L","tin",6500),("Plumbing","Copper pipe 3m","length",2400),("Plumbing","PVC drainage pipe 3m","length",1600),("Plumbing","Compression fitting","each",650),("Electrical","Electrical conduit 3m","length",450),("Electrical","Twin and earth cable 100m","roll",11500),("Roofing","Roofing membrane","roll",8500),("Fixings","Galvanised fixings","box",1200),("Tiling","Tile adhesive 20kg","bag",1900),("Sealants","Silicone sealant","tube",750),("Safety","Safety work gloves","pair",550)]
 def product(i):
     category,name,unit,base=GOODS[(i-1)%20]
@@ -14,9 +13,9 @@ def generate(root,year=2025,seed=42,orders=50000):
     rng=random.Random(seed)
     rows={k:[] for k in SPEC}
     def add(k,**row): rows[k].append(row)
-    for i in range(1,501): add("customers",customer_id=f"C{i:04}",name=PLACES[(i-1)%25]+" "+TYPES[(i-1)//25])
+    for i in range(1,501): add("customers",customer_id=f"C{i:04}",name=CUSTOMERS[i-1])
     for i in range(1,2001): add("products",product_id=f"P{i:04}",sku=f"SKU-{i:04}",name=product(i)["name"])
-    for i in range(1,101): add("suppliers",supplier_id=f"S{i:03}",name=PLACES[(i-1)%25]+" "+["Materials Manufacturing","Trade Imports","Industrial Supply","Wholesale Distribution"][(i-1)//25])
+    for i in range(1,101): add("suppliers",supplier_id=f"S{i:03}",name=SUPPLIERS[i-1])
     dates=[]; stock={}
     for i in range(1,orders+1):
         oid=f"O{i:06}"; month=rng.choices(range(1,13),weights=[7,7,8,8,9,9,8,8,10,11,14,13])[0]
