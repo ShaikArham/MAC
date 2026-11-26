@@ -1,0 +1,22 @@
+name: MAC polish acceptance
+on:
+  push:
+    branches: [mac-polish-acceptance]
+    paths: [.github/workflows/polish-acceptance.yml]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          node --check app.js
+          node --check analyst.js
+          node --check tests/browser.cjs
+      - run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - run: |
+          python -m http.server 8000 &
+          node tests/browser.cjs
