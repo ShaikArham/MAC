@@ -13,6 +13,9 @@ MAC is an independent data engineering and custom business software initiative f
 - About MAC and About the builder: motivation, architecture and professional background.
 
 ## Data and architecture
-50,000 synthetic orders, 500 trade accounts, 2,000 catalogue products, 100 suppliers and three warehouses. Python ingestion, SQLite validation and integrity-checked JSON partitions support a read-only browser application. Industry labels are deterministic fictional display aliases; no real customer or supplier relationships are claimed. No live integrations or external AI service.
+50,000 synthetic orders, 500 trade accounts, 2,000 catalogue products, 100 suppliers and three warehouses. Python ingestion, SQLite validation and integrity-checked JSON partitions support a read-only browser application. Industry names are deterministic fictional source records; no real customer or supplier relationships are claimed. No live integrations or external AI service.
 
 [Project tracker](docs/MASTER_TRACKER.md)
+
+## Verified industry release
+Release `fa98587` passed consolidated workflow [45888840034](https://github.com/ShaikArham/MAC/actions/runs/45888840034) and was promoted to gh-pages. Actual regenerated totals: 50,000 orders, EUR 54,751,013.48 order value, EUR 51,506,026.28 invoiced, EUR 46,400,074.98 paid, EUR 5,105,951.30 outstanding; 483,367 accepted and 2 rejected. Fictional customer and supplier names are generated source records, not display aliases. Catalogue categories, units and illustrative prices are joined from generated metadata; named warehouses appear in detail shards, aggregate warehouse IDs remain W001–W003. Browser regression passed locally in CI; live user navigation remains to be confirmed.
