@@ -26,3 +26,5 @@ jobs:
           node tests/browser.cjs
 
 # Final UI acceptance: latest filters, illustrations and viewport checks.
+
+# Recheck mobile navigation through visible menu.
