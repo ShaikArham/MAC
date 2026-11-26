@@ -171,5 +171,132 @@
         "delta": -2
       }
     ]
+  },
+  "monitoring": {
+    "sources": [
+      {
+        "id": "customers",
+        "kind": "csv",
+        "status": "healthy",
+        "rows": 2,
+        "checked_at": "2026-11-26T19:11:33.720874+00:00"
+      },
+      {
+        "id": "dispatches",
+        "kind": "csv",
+        "status": "healthy",
+        "rows": 1,
+        "checked_at": "2026-11-26T19:11:33.738740+00:00"
+      },
+      {
+        "id": "invoices",
+        "kind": "csv",
+        "status": "healthy",
+        "rows": 2,
+        "checked_at": "2026-11-26T19:11:33.740655+00:00"
+      },
+      {
+        "id": "order_lines",
+        "kind": "csv",
+        "status": "healthy",
+        "rows": 3,
+        "checked_at": "2026-11-26T19:11:33.733120+00:00"
+      },
+      {
+        "id": "orders",
+        "kind": "csv",
+        "status": "healthy",
+        "rows": 5,
+        "checked_at": "2026-11-26T19:11:33.730900+00:00"
+      },
+      {
+        "id": "payments",
+        "kind": "csv",
+        "status": "healthy",
+        "rows": 3,
+        "checked_at": "2026-11-26T19:11:33.742364+00:00"
+      },
+      {
+        "id": "products",
+        "kind": "csv",
+        "status": "healthy",
+        "rows": 2,
+        "checked_at": "2026-11-26T19:11:33.725832+00:00"
+      },
+      {
+        "id": "purchase_orders",
+        "kind": "csv",
+        "status": "healthy",
+        "rows": 1,
+        "checked_at": "2026-11-26T19:11:33.735106+00:00"
+      },
+      {
+        "id": "stock_movements",
+        "kind": "csv",
+        "status": "healthy",
+        "rows": 2,
+        "checked_at": "2026-11-26T19:11:33.736835+00:00"
+      },
+      {
+        "id": "suppliers",
+        "kind": "csv",
+        "status": "healthy",
+        "rows": 1,
+        "checked_at": "2026-11-26T19:11:33.728996+00:00"
+      }
+    ],
+    "batches": [
+      {
+        "id": "preview",
+        "status": "success",
+        "started": "2026-11-26T19:11:33.752325+00:00",
+        "finished": "2026-11-26T19:11:33.753314+00:00",
+        "error": null
+      }
+    ],
+    "rejections": [
+      {
+        "batch_id": "preview",
+        "entity": "order_lines",
+        "ordinal": 2,
+        "reason": "unknown order_id"
+      },
+      {
+        "batch_id": "preview",
+        "entity": "orders",
+        "ordinal": 2,
+        "reason": "unknown customer_id"
+      },
+      {
+        "batch_id": "preview",
+        "entity": "orders",
+        "ordinal": 3,
+        "reason": "duplicate key"
+      },
+      {
+        "batch_id": "preview",
+        "entity": "orders",
+        "ordinal": 4,
+        "reason": "invalid range"
+      },
+      {
+        "batch_id": "preview",
+        "entity": "payments",
+        "ordinal": 2,
+        "reason": "unknown invoice_id"
+      }
+    ],
+    "counts": {
+      "bronze": 22,
+      "silver": 17,
+      "quarantine": 5
+    },
+    "audit": [
+      {
+        "event": "batch_success",
+        "reference": "preview",
+        "timestamp": "2026-11-26T19:11:33.753314+00:00"
+      }
+    ]
   }
 }
