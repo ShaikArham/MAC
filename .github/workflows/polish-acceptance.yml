@@ -22,3 +22,5 @@ jobs:
           node tests/browser.cjs
 
 # Retry after restoring monthly response contract.
+
+# Retry mobile gesture boundary retention.
