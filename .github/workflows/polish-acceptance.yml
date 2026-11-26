@@ -33,3 +33,5 @@ jobs:
 # Mobile peak swipe retention and post-event heading acceptance.
 
 # Capture deliberate edge swipe on touchmove.
+
+# Correct test touch origin: avoid blocked Command Centre input.
