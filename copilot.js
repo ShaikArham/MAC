@@ -1,5 +1,6 @@
 /* Read-only snapshot assistant; no model or network calls. */
 function answerMAC(s,question){
+ if(s?.schema_version===2)return answerEnterprise(s,question);
  const unavailable={answer:"Snapshot unavailable or unsupported.",evidence:[],action:"Load a valid synthetic snapshot."};
  if(!s||s.schema_version!==1||s.synthetic!==true||!s.monitoring||!s.reconciliation||!s.summary)return unavailable;
  const q=String(question).trim().toLowerCase(),m=s.summary,z=s.monitoring,f=s.reconciliation;
