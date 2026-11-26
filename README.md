@@ -10,6 +10,8 @@ MAC is an independent data engineering and custom business software initiative f
 
 - [Technical reviewer guide](docs/TECHNICAL_REVIEW.md) — architecture, source locations, local startup, dataset totals, validation and limitations.
 - [Published application code](https://github.com/ShaikArham/MAC/tree/gh-pages)
+- [Architecture and data engineering](docs/ARCHITECTURE_REVIEW.md)
+- [Application and Copilot review](docs/APPLICATION_REVIEW.md)
 - [Engineering tracker](docs/MASTER_TRACKER.md)
 
 ## Explore
