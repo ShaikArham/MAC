@@ -31,3 +31,5 @@
 .order-filter-actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
 .order-search .scroll{margin-top:12px}
 @media(max-width:430px){.about-section-list{grid-template-columns:minmax(0,1fr)}.order-filter-grid{grid-template-columns:minmax(0,1fr)}}
+
+.about-illustration{display:block;width:100%;height:auto;border-radius:14px;margin:16px 0}.workspace-search{width:100%;box-sizing:border-box;padding:12px;min-height:44px}.order-filter-actions button,#mac-next-workspace button{min-height:44px}#mac-next-workspace{padding:20px 0;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}.workspace-visual{min-width:0}.workspace-visual .mac-chart-button{width:100%;text-align:left;overflow-wrap:anywhere}@media(max-width:600px){.order-filter-grid{grid-template-columns:minmax(0,1fr)}.scroll{max-width:100%;overflow-x:auto}.order-filter-actions button{flex:1}.about-illustration{margin:10px 0}}
