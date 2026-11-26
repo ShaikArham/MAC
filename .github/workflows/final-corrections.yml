@@ -33,3 +33,5 @@ jobs:
           git push origin HEAD:mac-final-corrections
 
 # Retry with explicit mobile touch and financial invariants.
+
+# Verify actual footer boundary and touch retention.
