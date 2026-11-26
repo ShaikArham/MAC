@@ -52,3 +52,5 @@ jobs:
 # Stable edge gesture zones and retained touch capture.
 
 # Align full mobile suite touch coordinates with safe surfaces.
+
+# Mobile edge suite runs exactly once; browser regression tests verify footer controls and analyst.
