@@ -4,7 +4,7 @@
 - [x] Private repository verified; write access confirmed.
 - [x] Project charter committed.
 - [ ] Design reference binary committed.
-- [ ] Development branches created.
+- [x] Development branches created.
 - [ ] Application shell implemented and validated.
 
 ## Ownership
@@ -18,3 +18,6 @@ Update tracker after meaningful changes; record commits, blockers and validation
 
 ## 2026-11-26 — Preview checkpoint
 Created mac-frontend, mac-data-engineering, mac-backend, mac-intelligence and gh-pages branches. Static HTML/CSS/JS shell committed to mac-frontend (564bdf4) and gh-pages (be30c7e). Navigation, mobile menu and scripted copilot controls implemented; metrics illustrative and remaining views placeholders. Frontend preview files currently at branch root. GitHub Pages publishing settings must be enabled manually; private repository plan eligibility unverified. No runtime/browser verification or backend integration yet. No custom Actions workflow created.
+
+## Data engineering checkpoint
+Branch mac-data-engineering: synthetic customers/orders CSV, Python validation and SQLite snapshot ingestion, JSON summary and rejection output committed through 04934ca. Source only; execution and tests pending. SQLite is provisional local prototype. Existing .gitignore prevented creation; review before generated outputs are committed. Repository remains private at latest metadata check; Pages activation unverified.
