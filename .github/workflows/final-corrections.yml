@@ -1,0 +1,33 @@
+name: Final corrections acceptance
+on:
+  push:
+    branches: [mac-final-corrections]
+    paths: [.github/workflows/final-corrections.yml]
+permissions:
+  contents: write
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Refresh and verify directory
+        run: |
+          python -m pipelines.refresh_names
+          git diff --stat
+          node --check app.js
+          node --check tests/browser.cjs
+      - name: Install browser
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - name: Browser acceptance
+        run: |
+          python -m http.server 8000 &
+          node tests/browser.cjs
+      - name: Commit verified directory on isolated branch
+        run: |
+          git config user.name "MAC verification"
+          git config user.email "actions@users.noreply.github.com"
+          git add details/customers.json details/suppliers.json details/manifest.json snapshot.json
+          git commit -m "Publish verified fictional directory on candidate branch"
+          git push origin HEAD:mac-final-corrections
