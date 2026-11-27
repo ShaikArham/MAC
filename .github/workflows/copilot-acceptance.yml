@@ -1,0 +1,17 @@
+name: Copilot acceptance
+on:
+  push:
+    branches: [mac-copilot-date-queries]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  acceptance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check analyst.js
+      - run: node tests/copilot-acceptance.cjs
