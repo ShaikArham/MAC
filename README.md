@@ -14,6 +14,7 @@ MAC is an independent data engineering and custom business software initiative f
 - [Application and Copilot review](docs/APPLICATION_REVIEW.md)
 - [Canonical data dictionary](docs/DATA_DICTIONARY_REVIEW.md)
 - [Validation and operational limitations](docs/VALIDATION_REVIEW.md)
+- [Demonstration and offline recovery runbook](docs/DEMO_RUNBOOK.md)
 - [Engineering tracker](docs/MASTER_TRACKER.md)
 
 ## Explore
