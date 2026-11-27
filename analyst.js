@@ -23,8 +23,8 @@ async function macAnalyst(s,question){
  if(/\b(send|delete|update|execute|transfer|approve|modify|password|secret)\b/.test(q))return out('MAC is read-only. No external actions or credentials are available.');
  const months=s.monthly.map(x=>x.month),names=['january','february','march','april','may','june','july','august','september','october','november','december'];
  const explicit=months.find((m,i)=>q.includes(m)||new RegExp('\\b'+names[i]+'\\b').test(q));
- const follow=/^(and |what about|how many|how much|what is|show me)/.test(q);
- const id=(q.match(/\b(?:c\d{4}|s\d{3}|p\d{4}|o\d{5,}|inv\d+)\b/i)||[])[0]?.toUpperCase()||(follow?analystContext.id:'');
+ const follow=/^(and |what about|how many|how much|what is|show me|which|list)/.test(q);
+ const id=(q.match(/\b(?:c\d{4}|s\d{3}|p\d{4}|o\d{5,}|inv\d+)\b/i)||[])[0]?.toUpperCase()||(follow&&!/invoice|finance|outstanding|payment|collected|stock|inventory|warehouse|annual|all year|full year/.test(q)?analystContext.id:'');
  const month=explicit||(/annual|all year|full year/.test(q)?'all':follow&&analystContext.month?analystContext.month:macState.month);
  const period=month==='all'?months:[month],label=month==='all'?'2025':month;
  const sum=(rows,k)=>rows.reduce((n,x)=>n+x[k],0),money=macMoney;
@@ -35,7 +35,7 @@ async function macAnalyst(s,question){
  const orderIntent=/\b(orders?|pending|fulfilled|sales|order value|customers?)\b/.test(q);
  const dateFollow=analystContext.topic==='datedOrders'&&/^(and |what about|how many|how much|what is|show me|which|list)/.test(q)&&!explicit&&!/annual|all year|full year|invoice|payment|stock|supplier|product|finance/.test(q)&&(!id||/^C/.test(id));
  const scope=dateScope||(dateFollow?{start:analystContext.start,end:analystContext.end}:null);
- if(scope&&(orderIntent||dateFollow||dateScope?.error)&&(!id||/^C/.test(id))&&!/invoice|payment|finance|stock|supplier|product/.test(q)){
+ if(scope&&(orderIntent||dateFollow||dateScope)&&(!id||/^C/.test(id))&&!/invoice|payment|finance|stock|supplier|product/.test(q)){
   if(scope.error)return out(scope.error);
   const selected=months.filter(m=>m>=scope.start.slice(0,7)&&m<=scope.end.slice(0,7));
   const rows=(await macOrders(selected)).filter(x=>x.order_date>=scope.start&&x.order_date<=scope.end&&(!id||x.customer_id===id));
