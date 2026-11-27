@@ -30,18 +30,20 @@ async function macAnalyst(s,question){
  const sum=(rows,k)=>rows.reduce((n,x)=>n+x[k],0),money=macMoney;
 
  const dateScope=macOrderDates(q,analystContext);
+ if(dateScope?.error)return out(dateScope.error);
+ if(dateScope&&/invoice|payment|finance|stock|supplier|product/.test(q))return out('Date-specific analysis is currently supported for sales orders only.');
  const orderIntent=/\b(orders?|pending|fulfilled|sales|order value|customers?)\b/.test(q);
- const dateFollow=analystContext.topic==='datedOrders'&&/^(and |what about|how many|how much|what is|show me|which|list)/.test(q)&&!explicit&&!/annual|all year|full year|invoice|payment|stock|supplier|product|finance/.test(q)&&!id;
+ const dateFollow=analystContext.topic==='datedOrders'&&/^(and |what about|how many|how much|what is|show me|which|list)/.test(q)&&!explicit&&!/annual|all year|full year|invoice|payment|stock|supplier|product|finance/.test(q)&&(!id||/^C/.test(id));
  const scope=dateScope||(dateFollow?{start:analystContext.start,end:analystContext.end}:null);
- if(scope&&(orderIntent||dateFollow||dateScope?.error)&&!id&&!/invoice|payment|finance|stock|supplier|product/.test(q)){
+ if(scope&&(orderIntent||dateFollow||dateScope?.error)&&(!id||/^C/.test(id))&&!/invoice|payment|finance|stock|supplier|product/.test(q)){
   if(scope.error)return out(scope.error);
   const selected=months.filter(m=>m>=scope.start.slice(0,7)&&m<=scope.end.slice(0,7));
-  const rows=(await macOrders(selected)).filter(x=>x.order_date>=scope.start&&x.order_date<=scope.end);
+  const rows=(await macOrders(selected)).filter(x=>x.order_date>=scope.start&&x.order_date<=scope.end&&(!id||x.customer_id===id));
   const status=/\bpending\b/.test(q)?'pending':/\bfulfilled\b/.test(q)?'fulfilled':/next day|previous day/.test(q)?analystContext.status||'':'';
   const matching=status?rows.filter(x=>x.status===status):rows;
   const pending=rows.filter(x=>x.status==='pending').length;
-  const title=scope.start===scope.end?scope.start:scope.start+' to '+scope.end;
-  analystContext={topic:'datedOrders',start:scope.start,end:scope.end,month:selected.length===1?selected[0]:'all',status};
+  const title=(id?id+' · ':'')+(scope.start===scope.end?scope.start:scope.start+' to '+scope.end);
+  analystContext={id,topic:'datedOrders',start:scope.start,end:scope.end,month:selected.length===1?selected[0]:'all',status};
   const examples=matching.slice(0,5);
   const result=out(title+': '+matching.length+' '+(status?status+' ':'')+'orders worth '+money(sum(matching,'amount_cents'))+'. All orders in period: '+rows.length+'; '+pending+' pending, '+(rows.length-pending)+' fulfilled.',['Integrity-checked order partitions; inclusive order dates; historical status, not status as of that date.',...examples.map(x=>x.order_id+' · '+x.customer_id+' · '+x.status+' · '+money(x.amount_cents))]);
   result.links=examples.map(x=>({label:'Open Sales orders · '+x.order_id,target:'Sales orders',id:x.order_id,month:x.order_date.slice(0,7),status:x.status}));
