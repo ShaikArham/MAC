@@ -1,5 +1,22 @@
 /* Deterministic analyst; no model, credentials or external calls. */
 let analystContext={};
+
+/* Explicit historical date parsing; no inference of live dates. */
+function macOrderDates(q,context){
+ const names='january february march april may june july august september october november december'.split(' ');
+ const dates=[];let invalid=false;
+ const add=(y,m,d)=>{const v=String(y)+'-'+String(m).padStart(2,'0')+'-'+String(d).padStart(2,'0');const t=new Date(v+'T00:00:00Z');if(y!==2025||!Number.isFinite(+t)||t.toISOString().slice(0,10)!==v)invalid=true;else dates.push(v)};
+ const pattern=/\b(\d{4})-(\d{2})-(\d{2})\b|\b(\d{1,2})(?:st|nd|rd|th)?\s+(january|february|march|april|may|june|july|august|september|october|november|december)(?:\s+(\d{4}))?\b/g;
+ for(const m of q.matchAll(pattern)){if(m[1])add(+m[1],+m[2],+m[3]);else add(+(m[6]||2025),names.indexOf(m[5])+1,+m[4])}
+ const short=q.match(/\b(?:between|from)\s+(\d{1,2})\s+(?:and|to|-)\s+(\d{1,2})\s+(january|february|march|april|may|june|july|august|september|october|november|december)(?:\s+(\d{4}))?\b/);
+ if(short){dates.length=0;add(+(short[4]||2025),names.indexOf(short[3])+1,+short[1]);add(+(short[4]||2025),names.indexOf(short[3])+1,+short[2])}
+ if(invalid||dates.length>2||dates.length===2&&dates[0]>dates[1])return {error:'Use a valid date or ascending date range within historical 2025 data.'};
+ if(dates.length)return {start:dates[0],end:dates[1]||dates[0]};
+ if(/\b(today|yesterday|tomorrow|these days|this week)\b/.test(q))return {error:'MAC contains historical 2025 data only. Please specify a date or range in 2025.'};
+ if(/\b(next day|previous day)\b/.test(q)&&context.start===context.end&&context.start){const t=new Date(context.start+'T00:00:00Z');t.setUTCDate(t.getUTCDate()+(/previous day/.test(q)?-1:1));const v=t.toISOString().slice(0,10);return v.startsWith('2025-')?{start:v,end:v}:{error:'That date is outside historical 2025 data.'}}
+ return null;
+}
+
 async function macAnalyst(s,question){
  const q=String(question).trim().toLowerCase(),out=(answer,evidence=[],target='',id='',month='all',status='')=>({answer,evidence,links:target?[{label:'Open '+target+(id?' · '+id:''),target,id,month,status}]:[]});
  if(!s||s.schema_version!==2)return out('Validated snapshot is not ready.');
@@ -11,6 +28,26 @@ async function macAnalyst(s,question){
  const month=explicit||(/annual|all year|full year/.test(q)?'all':follow&&analystContext.month?analystContext.month:macState.month);
  const period=month==='all'?months:[month],label=month==='all'?'2025':month;
  const sum=(rows,k)=>rows.reduce((n,x)=>n+x[k],0),money=macMoney;
+
+ const dateScope=macOrderDates(q,analystContext);
+ const orderIntent=/\b(orders?|pending|fulfilled|sales|order value|customers?)\b/.test(q);
+ const dateFollow=analystContext.topic==='datedOrders'&&/^(and |what about|how many|how much|what is|show me|which|list)/.test(q)&&!explicit&&!/annual|all year|full year|invoice|payment|stock|supplier|product|finance/.test(q)&&!id;
+ const scope=dateScope||(dateFollow?{start:analystContext.start,end:analystContext.end}:null);
+ if(scope&&(orderIntent||dateFollow||dateScope?.error)&&!id&&!/invoice|payment|finance|stock|supplier|product/.test(q)){
+  if(scope.error)return out(scope.error);
+  const selected=months.filter(m=>m>=scope.start.slice(0,7)&&m<=scope.end.slice(0,7));
+  const rows=(await macOrders(selected)).filter(x=>x.order_date>=scope.start&&x.order_date<=scope.end);
+  const status=/\bpending\b/.test(q)?'pending':/\bfulfilled\b/.test(q)?'fulfilled':/next day|previous day/.test(q)?analystContext.status||'':'';
+  const matching=status?rows.filter(x=>x.status===status):rows;
+  const pending=rows.filter(x=>x.status==='pending').length;
+  const title=scope.start===scope.end?scope.start:scope.start+' to '+scope.end;
+  analystContext={topic:'datedOrders',start:scope.start,end:scope.end,month:selected.length===1?selected[0]:'all',status};
+  const examples=matching.slice(0,5);
+  const result=out(title+': '+matching.length+' '+(status?status+' ':'')+'orders worth '+money(sum(matching,'amount_cents'))+'. All orders in period: '+rows.length+'; '+pending+' pending, '+(rows.length-pending)+' fulfilled.',['Integrity-checked order partitions; inclusive order dates; historical status, not status as of that date.',...examples.map(x=>x.order_id+' · '+x.customer_id+' · '+x.status+' · '+money(x.amount_cents))]);
+  result.links=examples.map(x=>({label:'Open Sales orders · '+x.order_id,target:'Sales orders',id:x.order_id,month:x.order_date.slice(0,7),status:x.status}));
+  return result;
+ }
+
  if(id&&/^C/.test(id)){const c=(await macDetail('customers')).find(x=>x.customer_id===id);if(!c)return out('No matching customer '+id);const rows=(await macOrders(period)).filter(x=>x.customer_id===id);analystContext={id,month,topic:'customer'};return out(c.name+' · '+label+': '+rows.length+' orders worth '+money(sum(rows,'amount_cents'))+'. '+rows.filter(x=>x.status==='pending').length+' pending.',['Customer '+id,'Validated order partitions; order value, not recognized revenue.'],'Customers',id)}
  if(id&&/^S/.test(id)){const c=(await macDetail('suppliers')).find(x=>x.supplier_id===id);if(!c)return out('No matching supplier '+id);const rows=(await macDetail('purchase_orders')).filter(x=>x.supplier_id===id);analystContext={id,month:'all',topic:'supplier'};return out(c.name+': '+rows.length+' historical purchase orders.',['Supplier '+id,...Object.entries(rows.reduce((a,x)=>(a[x.status]=(a[x.status]||0)+1,a),{})).map(([k,v])=>k+': '+v)],'Suppliers',id)}
  if(id&&/^P/.test(id)){const p=(await macDetail('products')).find(x=>x.product_id===id);if(!p)return out('No matching product '+id);const rows=(await macDetail('stock_counts')).filter(x=>x.product_id===id);analystContext={id,month:'all',topic:'product'};return out(p.name+' · '+money(p.price_cents)+' per '+p.unit+'. Counted stock '+sum(rows,'observed')+' units.',['Product '+id,...rows.map(x=>x.warehouse+': variance '+x.delta)],'Products',id)}
