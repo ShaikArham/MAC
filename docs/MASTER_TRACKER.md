@@ -131,3 +131,7 @@ User authorised an isolated correction and promotion after passing consolidated 
 
 ### MAC polish final freeze — 26 November 2026
 GitHub Pages workflow [45900814768](https://github.com/ShaikArham/MAC/actions/runs/45900814768) completed **success** with exact promoted `gh-pages` head `6fb0bce7cbd6384a663db1cfaf15f047f1546173`. Full polish acceptance [45900420983](https://github.com/ShaikArham/MAC/actions/runs/45900420983) succeeded. Final release is **frozen**; historical failed CI runs remain preserved as audit records and are superseded by successful acceptance. No further source edits, workflow reruns or deployments without explicit permission. Limitations: synthetic data, simulated integrations, deterministic read-only assistant (not LLM), and Chromium mobile emulation rather than physical device testing.
+
+
+### Presentation freeze — 28 November 2026
+Accepted commit cacbf8774fdccc1df445e1c13a4666c06ede3db3 promoted to gh-pages by non-forced fast-forward. Acceptance run 46146314725 passed 27 presentation layout checks (9 pages × 3 widths), Finance acceptance, browser regression and 38 mobile transitions. Comparison confirms only presentation JS, CSS, index and test/workflow files changed; no data or analyst changes. Pages run 46146674551 and live Chromium run 46146678247 initiated; final live acceptance pending. Freeze feature development; only evidenced release blockers may be corrected. Browser emulation is not physical-device verification; presentation checks do not exhaustively exercise every diagram link.
