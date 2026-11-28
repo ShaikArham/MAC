@@ -1,0 +1,46 @@
+name: MAC presentation acceptance
+on:
+  push:
+    branches: [mac-script-visual]
+    paths: [.github/workflows/script-visual.yml]
+permissions:
+  contents: read
+jobs:
+  finance-and-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Static syntax checks
+        run: |
+          node --check interactive.js
+          node --check app.js
+          node --check analyst.js
+          node --check tests/finance-acceptance.cjs
+          node --check tests/browser.cjs
+          node --check tests/mobile-all.cjs
+      - name: Install Chromium
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - name: Execute Finance acceptance and existing browser regression
+        run: |
+          python3 -m http.server 8000 &
+          sleep 2
+          node tests/script-visual.cjs
+          node tests/presentation.cjs
+          node tests/finance-acceptance.cjs
+          node tests/browser.cjs
+          node tests/mobile-all.cjs
+
+# Acceptance gate: Business overview starts with hidden reporting-period control.
+
+# Rerun after fixing responsive regression readiness on discovery landing.
+
+# Re-run after updating legacy diagram selectors.
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: script-visual-screenshots
+          path: screenshots/
