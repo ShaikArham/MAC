@@ -1,0 +1,28 @@
+name: MAC Finance live-site verification
+on:
+  push:
+    branches: [mac-finance-detail-review]
+    paths: [.github/workflows/mac-finance-live.yml]
+permissions:
+  contents: read
+jobs:
+  deployed-finance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install headless Chromium
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - name: Verify production assets and Finance browser scenarios
+        env:
+          MAC_BASE_URL: https://shaikarham.github.io/MAC/?v=finance-de7adb9
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --location 'https://shaikarham.github.io/MAC/?v=finance-de7adb9' -o /tmp/mac-live-index.html
+          grep -q 'interactive.js?v=finance1' /tmp/mac-live-index.html
+          curl --fail --silent --show-error --location 'https://shaikarham.github.io/MAC/interactive.js?v=finance1' -o /tmp/mac-live-interactive.js
+          grep -q "'Partially paid'" /tmp/mac-live-interactive.js
+          node tests/finance-acceptance.cjs
+          echo LIVE_FINANCE_VERIFIED
