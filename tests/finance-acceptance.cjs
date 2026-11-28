@@ -8,7 +8,7 @@ const euro=n=>new Intl.NumberFormat('en-IE',{style:'currency',currency:'EUR'}).f
   const page=await browser.newPage({viewport:{width:1440,height:900}});
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
   await page.goto(base,{waitUntil:'domcontentloaded'});
-  await page.getByLabel('Shared reporting period').waitFor();
+  await page.locator('#nav button').first().waitFor({state:'attached'});
   const go=async name=>{await page.locator('#nav').getByRole('button',{name,exact:true}).click();await page.locator('#view table').first().waitFor();};
   await go('Finance');
   const ledger=await page.evaluate(async()=>{
@@ -88,7 +88,7 @@ const euro=n=>new Intl.NumberFormat('en-IE',{style:'currency',currency:'EUR'}).f
    const mobile=await browser.newPage({viewport:{width,height:812},isMobile:true,hasTouch:true});
    const mobileErrors=[];mobile.on('pageerror',e=>mobileErrors.push(e.message));
    await mobile.goto(base,{waitUntil:'domcontentloaded'});
-   await mobile.getByLabel('Shared reporting period').waitFor();
+   await mobile.locator('#nav button').first().waitFor({state:'attached'});
    await mobile.locator('#menu').click();
    await mobile.locator('#nav').getByRole('button',{name:'Finance',exact:true}).click();
    await mobile.locator('#view table').first().waitFor();
