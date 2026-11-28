@@ -1,0 +1,23 @@
+name: MAC presentation live verification
+on:
+  push:
+    branches: [mac-presentation-polish]
+    paths: [.github/workflows/presentation-live.yml]
+permissions:
+  contents: read
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm install --no-save playwright && npx playwright install --with-deps chromium
+      - name: Verify deployed presentation and Finance
+        env:
+          MAC_BASE_URL: https://shaikarham.github.io/MAC/?v=cacbf877
+        run: |
+          for i in $(seq 1 30); do
+            if curl -fsSL "$MAC_BASE_URL" | grep -q 'presentation.js?v=1'; then break; fi
+            sleep 10
+          done
+          node tests/presentation.cjs
+          node tests/finance-acceptance.cjs
