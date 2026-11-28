@@ -44,3 +44,5 @@ jobs:
         with:
           name: script-visual-screenshots
           path: screenshots/
+
+# Repeat acceptance with scoped Finance selector.
