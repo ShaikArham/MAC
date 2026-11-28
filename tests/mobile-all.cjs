@@ -1,5 +1,5 @@
 const {chromium}=require('playwright');const assert=require('node:assert/strict');
-(async()=>{const browser=await chromium.launch({headless:true});try{const p=await browser.newPage({viewport:{width:375,height:812},isMobile:true,hasTouch:true});await p.goto('http://localhost:8000');await p.getByLabel('Shared reporting period').waitFor();
+(async()=>{const browser=await chromium.launch({headless:true});try{const p=await browser.newPage({viewport:{width:375,height:812},isMobile:true,hasTouch:true});await p.goto('http://localhost:8000');await p.locator('#nav button').first().waitFor({state:'attached'});
 const names=await p.locator('#nav button').allTextContents();const c=await p.context().newCDPSession(p);
 p.on('console',m=>{if(m.text().startsWith('MOBILE_TOUCH_START'))console.log(m.text())});
 await p.evaluate(()=>window.addEventListener('touchstart',e=>console.log('MOBILE_TOUCH_START '+JSON.stringify({name:document.querySelector('#heading').textContent,target:e.target.tagName,cls:e.target.className,scroll:scrollY,y:e.touches[0]?.clientY})),{capture:true,passive:true}));
