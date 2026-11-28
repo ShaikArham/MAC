@@ -36,3 +36,5 @@ jobs:
 # Acceptance gate: Business overview starts with hidden reporting-period control.
 
 # Rerun after fixing responsive regression readiness on discovery landing.
+
+# Re-run after updating legacy diagram selectors.
